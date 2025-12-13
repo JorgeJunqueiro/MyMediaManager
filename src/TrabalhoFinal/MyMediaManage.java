@@ -55,10 +55,8 @@ public class MyMediaManage {
 
     // Metodo ler char e tranforma para minuscula
     static char lerchar (){
-<<<<<<< HEAD
+
         System.out.print("\n\nEscolha sua opcao: ");
-=======
->>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
         String palavra = lerString();
 
         //Verifica se o usuario digitou mais que 1 letra
@@ -69,21 +67,15 @@ public class MyMediaManage {
 
         // Verificar de é Maisucla e converte para minuscula
         char opcao = palavra.charAt(0);
-<<<<<<< HEAD
         if (opcao >= 'A' && opcao <= 'Z'){
             int dif = 'a' - 'A';
             return (char)(opcao+dif);
         }
         
-=======
-
-        return opcao;
->>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
 
         return opcao;
     }
 
-<<<<<<< HEAD
     
 
 
@@ -91,8 +83,6 @@ public class MyMediaManage {
 
 
 
-=======
->>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
     public static void limparTela() {
     try {
         new ProcessBuilder("clear").inheritIO().start().waitFor();
@@ -118,7 +108,7 @@ public class MyMediaManage {
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.println("+==================================================+");
 
-<<<<<<< HEAD
+
 
             opcao = lerchar();
 
@@ -134,11 +124,7 @@ public class MyMediaManage {
 
         }while (opcao != 's');
          
-=======
-            System.out.print("\n\nEscolha sua opcao: ");
-            opcao = lerchar();
 
-        }while (opcao != 's'); 
     }
 
             static void menuMarcar(){
@@ -196,7 +182,6 @@ public class MyMediaManage {
                 
                 }while(opcao!='v');
         }
->>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
 
         
         

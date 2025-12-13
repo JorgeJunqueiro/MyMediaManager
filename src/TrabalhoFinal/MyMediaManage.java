@@ -26,11 +26,11 @@ public class MyMediaManage {
         for(int i=0;i<=nItens;i++){
 
             System.out.printf("%-4d%-18s%-15c%-14d%-14c%2d\n", i+1, titulo[i], tipo[i],ano[i],FazedorDeCruz(visto, i),rating[i]);
-
+            
         }
-
-
     }
+
+
 
     static char FazedorDeCruz(boolean visto[],int i){
         //este metodo retorna x ou vazio conforme foi visto
@@ -55,7 +55,10 @@ public class MyMediaManage {
 
     // Metodo ler char e tranforma para minuscula
     static char lerchar (){
+<<<<<<< HEAD
         System.out.print("\n\nEscolha sua opcao: ");
+=======
+>>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
         String palavra = lerString();
 
         //Verifica se o usuario digitou mais que 1 letra
@@ -66,15 +69,21 @@ public class MyMediaManage {
 
         // Verificar de é Maisucla e converte para minuscula
         char opcao = palavra.charAt(0);
+<<<<<<< HEAD
         if (opcao >= 'A' && opcao <= 'Z'){
             int dif = 'a' - 'A';
             return (char)(opcao+dif);
         }
         
+=======
+
+        return opcao;
+>>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
 
         return opcao;
     }
 
+<<<<<<< HEAD
     
 
 
@@ -82,6 +91,8 @@ public class MyMediaManage {
 
 
 
+=======
+>>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
     public static void limparTela() {
     try {
         new ProcessBuilder("clear").inheritIO().start().waitFor();
@@ -107,6 +118,7 @@ public class MyMediaManage {
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.println("+==================================================+");
 
+<<<<<<< HEAD
 
             opcao = lerchar();
 
@@ -122,10 +134,72 @@ public class MyMediaManage {
 
         }while (opcao != 's');
          
+=======
+            System.out.print("\n\nEscolha sua opcao: ");
+            opcao = lerchar();
+
+        }while (opcao != 's'); 
+    }
+
+            static void menuMarcar(){
+                //Este é o menu de marcação.
+                char opcao = 'a';
+                limparTela();
+                do{
+                    System.out.println("+==================   MENU  =======================+");
+                    System.out.printf("|%-25s %25s%n"," * Maracar como (V)isto por posição","|");
+                    System.out.printf("|%-25s %25s%n"," * Marcar como visto por (t)ítulo","|");
+                    System.out.printf("|%-25s %25s%n"," * (D)esmarcar último marcado como visto","|");
+                    System.out.printf("|%-25s %25s%n"," * (A)tribuir / alterar rating por números","|");
+                    System.out.printf("|%-25s %25s%n"," * (V)oltar","|");
+                    System.out.println("+==================================================+");
+                    
+                    System.out.print("\n\nEscolha sua opcao: ");
+                    opcao = lerchar();
+                
+                }while(opcao!='v');
+        }
+
+            static void adicionador(){
+                //Este é o menu permite a adicionar ou eleminar conteudos.
+                char opcao = 'a';
+                limparTela();
+                do{
+                    System.out.println("+==================   MENU  =======================+");
+                    System.out.printf("|%-25s %25s%n"," * (A)dicionar item no fim","|");
+                    System.out.printf("|%-25s %25s%n"," * Adicionar (i)tem na posição n","|");
+                    System.out.printf("|%-25s %25s%n"," * Apagar item na (p)osição n","|");
+                    System.out.printf("|%-25s %25s%n"," * Apagar itens (v)istos","|");
+                    System.out.printf("|%-25s %25s%n"," * (V)oltar","|");
+                    System.out.println("+==================================================+");
+                    
+                    System.out.print("\n\nEscolha sua opcao: ");
+                    opcao = lerchar();
+                
+                }while(opcao!='v');
+        }
+
+        static void Estatisticas(){
+                //Este é o menu permite o utilizador escolher que estatisticas pretende ver.
+                char opcao = 'a';
+                limparTela();
+                do{
+                    System.out.println("+==================   MENU  =======================+");
+                    System.out.printf("|%-25s %25s%n"," * (P)ercentagem de vistos","|");
+                    System.out.printf("|%-25s %25s%n"," * (M)édia de rating dos vistosn","|");
+                    System.out.printf("|%-25s %25s%n"," * Distribuição por (d)écada","|");
+                    System.out.printf("|%-25s %25s%n"," * (V)oltar","|");
+                    System.out.println("+==================================================+");
+                    
+                    System.out.print("\n\nEscolha sua opcao: ");
+                    opcao = lerchar();
+                
+                }while(opcao!='v');
+        }
+>>>>>>> 72d1063f8efb08231d2c4158f52ba34213e1e03a
 
         
-
-    }
+        
 
 }
 

@@ -16,10 +16,11 @@ public class MyMediaManage {
     fazedorTabela(tamMax, titulo, tipo, ano, visto, rating, nItens);
     }
 
-    static void fazedorTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void fazedorTabela(Int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         
         System.out.println("Nº\tTítulo\t\tTipo\tAno\tVisto\tRating\n--------kk--teste1------------------------------------------------");
         System.out.println("Teste1");
+        System.out.println("teste2");
         for(int i=0;i<=nItens;i++){
 
             System.out.printf("%d\t%10s\t%c\t%d\t%b\t%d \n", i+1, titulo[i], tipo[i],ano[i],visto[i],rating[i]);

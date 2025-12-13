@@ -21,6 +21,7 @@ public class MyMediaManage {
         System.out.println("Nº\tTítulo\t\tTipo\tAno\tVisto\tRating\n--------kk--teste1------------------------------------------------");
         System.out.println("Teste1");
         System.out.println("teste2");
+        System.out.println("teste 3");
         for(int i=0;i<=nItens;i++){
 
             System.out.printf("%d\t%10s\t%c\t%d\t%b\t%d \n", i+1, titulo[i], tipo[i],ano[i],visto[i],rating[i]);

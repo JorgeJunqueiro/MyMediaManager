@@ -49,21 +49,36 @@ public class MyMediaManage {
 
         Scanner teclado = new Scanner(System.in);
         String resultado = teclado.nextLine();
-        
         return resultado;
 
     }
 
+    // Metodo ler char e tranforma para minuscula
     static char lerchar (){
-
-        
+        System.out.print("\n\nEscolha sua opcao: ");
         String palavra = lerString();
+
+        //Verifica se o usuario digitou mais que 1 letra
+        if(palavra.length() > 1){
+            System.out.println("\n**** Escolha apenas uma letra ****");
+            lerchar();
+        }
+
+        // Verificar de é Maisucla e converte para minuscula
         char opcao = palavra.charAt(0);
-
+        if (opcao >= 'A' && opcao <= 'Z'){
+            int dif = 'a' - 'A';
+            return (char)(opcao+dif);
+        }
         
-        return opcao;
 
+        return opcao;
     }
+
+    
+
+
+    
 
 
 
@@ -78,10 +93,10 @@ public class MyMediaManage {
     static void menuPrincipal (){
 
         char opcao = 'a';
+        limparTela();
 
        do{
 
-            limparTela();
             System.out.println("+==================   MENU  =======================+");
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.printf("|%-25s %25s%n"," * (V)isualizar","|");
@@ -93,9 +108,17 @@ public class MyMediaManage {
             System.out.println("+==================================================+");
 
 
-
-            System.out.print("\n\nEscolha sua opcao: ");
             opcao = lerchar();
+
+            switch (opcao) {
+                case ('v'):
+                    System.out.println("Menu Visualizar\n\n\n");
+                    
+                    break;
+            
+                default:
+                    break;
+            }
 
         }while (opcao != 's');
          

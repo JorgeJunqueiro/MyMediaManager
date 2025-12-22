@@ -9,18 +9,29 @@
  *     Turma: 2
  *
  *   - Nome : Jorge Junqueiro
- *     Nº   : XXXXXXXX
+ *     Nº   : 20181052
  *     Curso: Engenharia Informática
  *     Turma: 2
  * ============================================================
  */
 
 
+/*----------------------------------A FAZERES/ NOTAS --------------------------------------------------
+ha um bug na saida do programa, repete varias vezes.
+verificar o meu codigo. (jjunkas)
+fiz metedos para leitura de boolean, int, ler rating, movimentar e adicionar (tem que se organizarar)
+falta fazer apagar na linha e apagar vistos
+vou jantar 
+
+
+*/
+
+
 
 
 package TrabalhoFinal;
 import java.util.Scanner;
-
+//==================================================== Menu Principal ============================================================
 public class MyMediaManage {
 
     static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
@@ -82,9 +93,10 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: Ler String-----------------------------------------------
     static String lerString (){
 
-        @SuppressWarnings("resource")
+
         Scanner teclado = new Scanner(System.in);
         String resultado = teclado.nextLine();
+        //teclado.close();
         return resultado;
 
     }
@@ -92,12 +104,12 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: ler char e tranforma para minuscula se necessario--------
     static char lerChar (){
 
-        System.out.print("\n\nEscolha sua opcao: ");
+        //System.out.print("\n\nEscolha sua opcao: "); isto não pode ficar aqui senão não dá para utilizar noutros sitios.
         String palavra = lerString();
 
         //Verifica se o usuario digitou mais que 1 letra
         if(palavra.length() > 1){
-            System.out.println("\n**** Escolha apenas uma letra ****");
+            System.out.println("\n**** Escolha apenas uma letra ****");//aqui a mesma coisa
             lerChar();
         }
 
@@ -232,8 +244,37 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
-            case ('v'):
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
+            case ('a'): //Adinciona filme no final
+                
+                if(nItens!=tamMax){
+                    int pos=nItens;
+                    adicionar(tamMax, titulo, tipo, ano, visto,  rating,  nItens, pos);
+                    nItens++;
+                }else{
+                    System.out.println("A Lista está cheia!");
+                }
+                
+                break;
+            case ('i') :
+
+                System.out.println("Introduza a posição em que pretende colocar: ");
+                int pos = lerInt(); 
+                if(pos!=tamMax){
+                    movimentar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                    adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                    nItens++;
+                }else{
+                    pos=nItens-1;
+                    adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                }
+
+
+
+                break;
+
+            case ('v'): //Volta para o menu principal.
+                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens); 
                 break;
             
         
@@ -244,6 +285,93 @@ public class MyMediaManage {
         
         }while(opcao!='v');
     }
+
+    static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
+        
+        for(int i=tamMax-1;i>pos-1;i--){
+
+            titulo[i]=titulo[i-1];
+            tipo[i]=tipo[i-1];
+            ano[i]=ano[i-1];
+            visto[i]=visto[i-1];
+            rating[i]=rating[i-1];
+        }
+
+
+
+    }
+
+    static void adicionar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
+
+        System.out.println("Introduza o titulo: ");
+        titulo[pos]= lerString();
+        System.out.println("Introduza o tipo: ");
+        tipo[pos]=tipoMaiusculo();
+        System.out.println("Introduza o ano: ");
+        ano[pos]=lerInt();
+        System.out.println("Introduza se já viu(S/N): ");
+        visto[pos]=lerBooleano();
+        System.out.println("Introduza o rating: ");
+        rating[pos]=lerRating();
+
+    }
+
+    static char tipoMaiusculo(){
+        char c;
+        do{
+            c=lerChar();
+            if (c == 's'){
+                c='S';
+                return c;
+            }else if(c=='f'){
+                c='F';
+                return c;
+            } 
+            else System.out.println("Introduza S(erie) ou F(ilme)!!!!!!!");
+        }while(c!='C'||c!='F');
+        return c;
+    }
+
+    static int lerInt(){
+        
+        Scanner teclado = new Scanner(System.in);
+        int n = teclado.nextInt();
+        
+        return n;
+    }
+
+    static boolean lerBooleano(){
+        Scanner teclado = new Scanner(System.in);
+        boolean b=false;
+        String simNao;
+        do{
+        simNao = lerString();
+            if(simNao.equalsIgnoreCase("S")){
+                return true;
+            }else if(simNao.equalsIgnoreCase("N")){
+                return false;
+            }else{
+                System.out.println("Só pode introduzir S ou N!!!!!!");
+            }
+        }while(simNao.equalsIgnoreCase("S")==false || simNao.equalsIgnoreCase("N")==false);
+        
+        return b;
+    }
+
+    static int lerRating(){
+        int n;
+        do{
+            n=lerInt();
+            if(n< 0 || n>10){
+                System.out.println("O rating tem de ser entre 0 e 10!!!!!!!!!!!");
+            }
+        }while(n<0 || n>10);
+            return n;
+ 
+
+
+    }
+
 
     //------------------------------------------------Metodo: Menu Estatistica----------------------------------------
     static void menuEstatisticas(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
@@ -281,13 +409,19 @@ public class MyMediaManage {
     public static void main(String[] args) {
 
    
-    int tamMax = 100;
+    int tamMax = 5;
     String[] titulo = new String[tamMax];
     char[] tipo = new char[tamMax];
     int[] ano = new int[tamMax];
     boolean[] visto = new boolean[tamMax];
     int[] rating = new int[tamMax];
     int nItens=4;
+    //carrega o string titulo com vazio.
+    for(int i=0;i<titulo.length;i++){
+        titulo[i]="Espaço vazio.";
+        visto[i]=false;
+    }
+
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;
     titulo[2] = "Oppenheimer"; tipo[2] = 'F'; ano[2] = 2023; visto[2] = false; rating[2] = 0;

@@ -115,10 +115,10 @@ public class MyMediaManage {
 
         // Verificar de é Maisucla e converte para minuscula
         char opcao = palavra.charAt(0);
-        if (opcao >= 'A' && opcao <= 'Z'){
+        /*if (opcao >= 'A' && opcao <= 'Z'){
             int dif = 'a' - 'A';
             return (char)(opcao+dif);
-        }
+        }*/
         
 
         return opcao;
@@ -131,7 +131,7 @@ public class MyMediaManage {
     static void fazedorTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
         limparTela();
-        
+        System.out.println(nItens);
         System.out.printf("%-4s%s%15s%15s%15s%15s\n----------------------------------------------------------------------\n", "No", "Titulo", "Tipo", "Ano", "Visto", "Rating");
         for(int i=0;i<nItens;i++){
 
@@ -198,6 +198,7 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: Menu Marcar---------------------------------------------
     static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
+        
         limparTela();
         do{
             System.out.println("+==================   MENU  =======================+");
@@ -229,6 +230,7 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: Menu Editar--------------------------------------------
     static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
+        int pos;
         limparTela();
         do{
             System.out.println("+==================   MENU  =======================+");
@@ -248,7 +250,7 @@ public class MyMediaManage {
             case ('a'): //Adinciona filme no final
                 
                 if(nItens!=tamMax){
-                    int pos=nItens;
+                    pos=nItens;
                     adicionar(tamMax, titulo, tipo, ano, visto,  rating,  nItens, pos);
                     nItens++;
                 }else{
@@ -256,28 +258,57 @@ public class MyMediaManage {
                 }
                 
                 break;
-            case ('i') :
+            case ('i') : //Introduzir na posição. (Movimenta e adiciona).
 
                 System.out.println("Introduza a posição em que pretende colocar: ");
-                int pos = lerInt(); 
-                if(pos!=tamMax){
+                pos = lerInt()-1; 
+                if(pos<nItens){
                     movimentar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                     adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
-                    nItens++;
+                    if(nItens<tamMax){
+                        nItens++;
+                    }
                 }else{
-                    pos=nItens-1;
+                    pos=nItens;
                     adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                    if(nItens<tamMax){
+                        nItens++;
+                    }
                 }
-
-
 
                 break;
 
+            case('p'): //Apaga na Posição pretendida.
+                
+                
+                if(nItens!=0){
+                    System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
+                    pos = lerInt();
+                        if(pos>nItens){
+                            System.out.println("Esse numero está vazio.");
+                        }else{
+                            apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                            nItens--;
+                        }    
+                }else if(nItens==0){
+                    System.out.println("Tabela está vazia.");
+                }
+                break;         
+            
+            case('t'): //apaga os vistos
+                for(int i=nItens;i>=0;i--){
+                    if(visto[i]==true){
+                        pos=i;
+                        apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                        nItens--;
+                    }
+                }
+                break;
             case ('v'): //Volta para o menu principal.
                 menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens); 
                 break;
             
-        
+                   
             default:
                 System.out.println("**** Opcao invalida ****\n\n");
                 break;
@@ -286,9 +317,26 @@ public class MyMediaManage {
         }while(opcao!='v');
     }
 
+    static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
+
+        for(int i=pos;i<nItens;i++){
+
+            titulo[i]=titulo[i+1];
+            tipo[i]=tipo[i+1];
+            ano[i]=ano[i+1];
+            visto[i]=visto[i+1];
+            rating[i]=rating[i+1];
+            
+        }
+
+
+
+    }
+
+
     static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
         
-        for(int i=tamMax-1;i>pos-1;i--){
+        for(int i=nItens-1;i>pos;i--){
 
             titulo[i]=titulo[i-1];
             tipo[i]=tipo[i-1];
@@ -417,10 +465,10 @@ public class MyMediaManage {
     int[] rating = new int[tamMax];
     int nItens=4;
     //carrega o string titulo com vazio.
-    for(int i=0;i<titulo.length;i++){
+    /*for(int i=0;i<titulo.length;i++){
         titulo[i]="Espaço vazio.";
         visto[i]=false;
-    }
+    }*/
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;

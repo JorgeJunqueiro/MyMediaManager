@@ -314,6 +314,29 @@ public class MyMediaManage {
         System.out.println("\n\n");
      
     } 
+
+    //------------------------------------------------Metodo: MultiCriterio-------------------------
+    static void visualizarPorMulticriterio(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    } 
+      
                  
          
     //------------------------------------------------Metodo: Menu Visualizar---------------------------------------------

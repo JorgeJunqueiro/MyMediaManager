@@ -40,19 +40,19 @@ public class MyMediaManage {
        do{
             
             System.out.println(nItens);//para debug apagar depois
-            System.out.println("+==================   MENU  =======================+");
-            System.out.printf("|%-25s %25s%n", "","|");
-            System.out.printf("|%-25s %25s%n"," * (V)isualizar","|");
-            System.out.printf("|%-25s %25s%n"," * (M)arcar / Classificar","|");
-            System.out.printf("|%-25s %25s%n"," * (E)ditar","|");
-            System.out.printf("|%-25s %25s%n"," * Es(t)atísticas","|");
-            System.out.printf("|%-25s %25s%n"," * (S)air","|");
-            System.out.printf("|%-25s %25s%n", "","|");
+            System.out.println("+==================  MENU  ========================+");          
+            System.out.printf("|%-50s|%n", "");
+            System.out.printf("|%-50s|%n"," * (V)isualizar");
+            System.out.printf("|%-50s|%n"," * (M)arcar / Classificar");
+            System.out.printf("|%-50s|%n"," * (E)ditar");
+            System.out.printf("|%-50s|%n"," * Es(t)atísticas");
+            System.out.printf("|%-50s|%n"," * (S)air");
+            System.out.printf("|%-50s|%n", "");
             System.out.println("+==================================================+");
 
 
 
-            opcao = lerCharIgnoreCase();
+            opcao = lerChar();
 
             switch (opcao) {
                 case ('V'):
@@ -67,6 +67,8 @@ public class MyMediaManage {
                 case ('t'):
                     menuEstatisticas(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;    
+                case ('S'):
+                    break; 
             
                 default:
                     limparTela();
@@ -148,45 +150,16 @@ public class MyMediaManage {
     //-------------------------------- Metodo: ler char e tranforma para minuscula se necessario--------
     static char lerChar (){
 
-        //System.out.print("\n\nEscolha sua opcao: "); isto não pode ficar aqui senão não dá para utilizar noutros sitios.
-        String palavra = lerString();
-
-        //Verifica se o usuario digitou mais que 1 letra
-        if(palavra.length() > 1){
-            System.out.println("\n**** Escolha apenas uma letra ****");//aqui a mesma coisa
-            lerChar();
-        }
-
-        // Verificar de é Maisucla e converte para minuscula
-        char opcao = palavra.charAt(0);
-        /*if (opcao >= 'A' && opcao <= 'Z'){
-            int dif = 'a' - 'A';
-            return (char)(opcao+dif);
-        }*/
-        
-        
-        return opcao;
-    }
-
-    static char lerCharIgnoreCase(){
-
         Scanner teclado = new Scanner(System.in);
         
         System.out.print("\n\nEscolha sua opcao: ");
-        char palavra = teclado.next().charAt(0);
+        char letra = teclado.next().charAt(0);
+         
         
-
-
-        // Verificar de é Maisucla e converte para minuscula
-        char opcao = palavra;
-        if (opcao >= 'A' && opcao <= 'Z'){
-            int dif = 'a' - 'A';
-            return (char)(opcao+dif);
-        }
-        
-        
-        return opcao;
+        return letra;
     }
+
+ 
 
 
 
@@ -248,6 +221,7 @@ public class MyMediaManage {
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n", " * Visualizar (t)odos");
             System.out.printf("|%-50s|%n", " * Visualizar por (a)no exato");
+            System.out.printf("|%-50s|%n", " * Visualizar por (j)a vistos");
             System.out.printf("|%-50s|%n", " * Visualizar por (n)ão vistos");
             System.out.printf("|%-50s|%n", " * Visualizar por (p)alavra no título");
             System.out.printf("|%-50s|%n", " * Visualizar por (r)ating mínimo");
@@ -278,6 +252,9 @@ public class MyMediaManage {
                     break;
                 case 'r':
                     visualizarPorRating(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'm':
+                    visualizarPorMulticriterio(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
 
                 case 'v':
@@ -421,23 +398,127 @@ public class MyMediaManage {
 
     //-------------------------------- Metodo: MultiCriterio-------------------------
     static void visualizarPorMulticriterio(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-        System.out.print("\nDigite a nota minima do filme devera ter: ");
-
-        int notaEscolhida = lerInt();
-
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
+     
+    int opcaoTipo, opcaoVisto, opcaoAno, opcaoNota;
+    int anoMin = -1, anoMax = -1;
+    int notaMin = -1, notaMax = -1;
+     
+                         
+        do {
+            limparTela();
+            System.out.println("+==================   Filtrar por tipo?  ==========+");
+            System.out.printf("|%-50s|%n", "");
+            System.out.printf("|%-50s|%n"," 1 - Filme");
+            System.out.printf("|%-50s|%n"," 2 - Série");
+            System.out.printf("|%-50s|%n"," 0 - Não filtrar");
+            System.out.printf("|%-50s|%n", "");
+            System.out.println("+==================================================+");
+            System.out.print("+\n\n opcao:"); 
+            opcaoTipo = lerInt();
+        } while (opcaoTipo < 0 || opcaoTipo > 2);
+                            
+        
+        do {
+            limparTela();                  
+            System.out.println("+==================   Filtrar por status?  ========+");
+            System.out.printf("|%-50s|%n", "");
+            System.out.printf("|%-50s|%n"," 1- Já visto");
+            System.out.printf("|%-50s|%n"," 2 - Não visto");
+            System.out.printf("|%-50s|%n"," 0 - Não filtrar");
+            System.out.printf("|%-50s|%n", "");
+            System.out.println("+==================================================+");
+            System.out.print("+\n\n opcao:");                  
+            opcaoVisto = lerInt(); 
+        } while (opcaoVisto < 0 || opcaoVisto > 2);
+                            
+        do {
+            limparTela();
+            System.out.println("+==================   Filtrar por ano?  ===========+");
+            System.out.printf("|%-50s|%n", "");
+            System.out.printf("|%-50s|%n"," 1- Ano específico");
+            System.out.printf("|%-50s|%n"," 2 - Intervalo de anos");
+            System.out.printf("|%-50s|%n"," 0 - Não filtrar");
+            System.out.printf("|%-50s|%n", "");
+            System.out.println("+==================================================+");   
+            System.out.print("+\n\n opcao:");                  
+            opcaoAno = lerInt();   
+        } while (opcaoAno < 0 || opcaoAno > 2);
+        
+        if (opcaoAno == 1) {
+            System.out.print("Ano: ");
+            anoMin = anoMax = lerInt();
+        } 
+        else if (opcaoAno == 2) {
+            System.out.print("Ano inicial: ");
+            anoMin = lerInt();
+            System.out.print("Ano final: ");
+            anoMax = lerInt();
+        }
+        
+    
+        do {
+            limparTela();
+            System.out.println("+==================   Filtrar por nota?  ==========+");
+            System.out.printf("|%-50s|%n", "");
+            System.out.printf("|%-50s|%n"," 1- Maior ou igual a X");
+            System.out.printf("|%-50s|%n"," 2 - Menor ou igual a X");
+            System.out.printf("|%-50s|%n"," 3 - Entre X e Y");
+            System.out.printf("|%-50s|%n"," 0 - Não filtrar");
+            System.out.printf("|%-50s|%n", "");
+            System.out.println("+==================================================+");   
+            System.out.print("+\n\n opcao:");                  
+            opcaoNota = lerInt();   
+        } while (opcaoNota < 0 || opcaoNota > 3);
+        
+        if (opcaoNota == 1) {
+            System.out.print("Nota mínima: ");
+            notaMin = lerInt();
+            notaMax = -1; // sem limite superior
+        } 
+        else if (opcaoNota == 2) {
+            System.out.print("Nota máxima: ");
+            notaMax = lerInt();
+            notaMin = -1; // sem limite inferior
+        } 
+        else if (opcaoNota == 3) {
+            System.out.print("Nota mínima: ");
+            notaMin = lerInt();
+            System.out.print("Nota máxima: ");
+            notaMax = lerInt();
+        } 
+        else {
+            // não filtrar
+            notaMin = -1;
+            notaMax = -1;
         }
 
-        System.out.println("\n\n");
+        cabecalhoTabela();
+
+        for (int i = 0; i < nItens; i++) {
+
+            // 1 FILME / 2 SERIE    
+            if (opcaoTipo == 1 && tipo[i] != 'F') continue;
+            if (opcaoTipo == 2 && tipo[i] != 'S') continue;
+
+            // 1 TRUE / 2 FALSE  
+            if (opcaoVisto == 1 && !visto[i]) continue;
+            if (opcaoVisto == 2 && visto[i]) continue;
+
+            if (anoMin != -1 && ano[i] < anoMin) continue;
+            if (anoMax != -1 && ano[i] > anoMax) continue;
+
+            if (notaMin != -1 && rating[i] < notaMin) continue;
+            if (notaMax != -1 && rating[i] > notaMax) continue;
+
+            criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+        }
+                          
+                              
+                              
+
+        
+ 
+
      
     } 
 

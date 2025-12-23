@@ -39,7 +39,7 @@ public class MyMediaManage {
        limparTela();
        do{
             
-            System.out.println(nItens);//para debug apagar depois
+            //System.out.println(nItens);//para debug apagar depois
             System.out.println("+==================   MENU  =======================+");
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.printf("|%-25s %25s%n"," * (V)isualizar","|");
@@ -397,7 +397,6 @@ public class MyMediaManage {
         }
 
         System.out.println("\n\n");
-     
     } 
 
     //-------------------------------- Metodo: MultiCriterio-------------------------
@@ -599,10 +598,7 @@ public class MyMediaManage {
         visto[pos]=lerBooleano();
         System.out.println("Introduza o rating: ");
         rating[pos]=lerRating();
-
     }
-
-    
 
     static char tipoMaiusculo(){
         //este metedo faz com que o char introduzido no tipo de item seja S ou F maiusculos
@@ -706,7 +702,7 @@ public class MyMediaManage {
                 nVistos++;
             }
         }
-        System.out.printf("Media de rating dos vistos: %.2f\n", rate/nVistos);
+        System.out.printf("\nMedia de rating dos vistos: %.2f\n\n", rate/nVistos);
 
 
     }
@@ -720,7 +716,7 @@ public class MyMediaManage {
             }
         }
         precentagem=nVistos/nItens;
-        System.out.printf("\nPrecentagem de vistos: %.2f%%\n" , precentagem*100);
+        System.out.printf("\nPrecentagem de vistos: %.2f%%\n\n" , precentagem*100);
 
     }
 
@@ -735,7 +731,7 @@ public class MyMediaManage {
                 else if(ano[i]>=2020 && ano[i]<2030) dVintes++;
             }
 
-        System.out.printf("\n1990-1999: %d \n2000-2009: %d \n2010-2019: %d \n2020-2029: %d\n",dNoventa,dZeros,dDez,dVintes);
+        System.out.printf("\nDestribuição por decada: \n1990-1999: %d \n2000-2009: %d \n2010-2019: %d \n2020-2029: %d\n\n",dNoventa,dZeros,dDez,dVintes);
     }
 
     //===============================================     MAIN     =================================================

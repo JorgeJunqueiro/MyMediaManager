@@ -31,7 +31,7 @@ vou jantar
 
 package TrabalhoFinal;
 import java.util.Scanner;
-//==================================================== Menu Principal ============================================================
+//=================================================================== MENU PRINCIPAL ============================================================
 public class MyMediaManage {
 
     static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
@@ -81,7 +81,7 @@ public class MyMediaManage {
 
     }
 
-    //------------------------------------------------Metodo: Limpar a tela do terminal--------------------------------
+    //-------------------------------- Metodo: Limpar a tela do terminal--------------------------------
     public static void limparTela() {
     try {
         new ProcessBuilder("clear").inheritIO().start().waitFor();
@@ -91,7 +91,7 @@ public class MyMediaManage {
     }
 
 
-    //------------------------------------------------Metodo: Ler String-----------------------------------------------
+    //-------------------------------- Metodo: Ler String-----------------------------------------------
     static String lerString (){
 
 
@@ -102,7 +102,7 @@ public class MyMediaManage {
 
     }
 
-    //------------------------------------------------Metodo: Ler Inteiros-----------------------------------------------
+    //-------------------------------- Metodo: Ler Inteiros-----------------------------------------------
     static int lerInt(){
 
         @SuppressWarnings("resource")
@@ -118,7 +118,7 @@ public class MyMediaManage {
 
     }
 
-    //------------------------------------------------Metodo: Ler Inteiros com restricao de  intervalo-----------------------------------------------
+    //-------------------------------- Metodo: Ler Inteiros com restricao de  intervalo-----------------------------------------------
     static int lerInt(int min, int max){
 
         
@@ -137,7 +137,7 @@ public class MyMediaManage {
     }
 
 
-    //------------------------------------------------Metodo: Ler String por palavra -----------------------------------------------
+    //-------------------------------- Metodo: Ler String por palavra -----------------------------------------------
     static String lerStringPalavra (){
 
         @SuppressWarnings("resource")
@@ -147,7 +147,7 @@ public class MyMediaManage {
 
     }
 
-    //------------------------------------------------Metodo: ler char e tranforma para minuscula se necessario--------
+    //-------------------------------- Metodo: ler char e tranforma para minuscula se necessario--------
     static char lerChar (){
 
         Scanner teclado = new Scanner(System.in);
@@ -171,7 +171,7 @@ public class MyMediaManage {
 
 
 
-    //------------------------------------------------Metodo: Cria tabela com array dos filmes-------------------------
+    //-------------------------------- Metodo: Cria tabela com array dos filmes-------------------------
     static void fazedorTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
         limparTela();
@@ -186,7 +186,7 @@ public class MyMediaManage {
         System.out.println("\n\n\n");
     }
 
-    //------------------------------------------------Metodo: Cria cabeçalho tabela-------------------------
+    //-------------------------------- Metodo: Cria cabeçalho tabela-------------------------
     static void cabecalhoTabela(){
 
         limparTela();
@@ -194,7 +194,7 @@ public class MyMediaManage {
         
     }
 
-    //------------------------------------------------Metodo: Cria tabela com array dos filmes uma linha-------------------------
+    //-------------------------------- Metodo: Cria tabela com array dos filmes uma linha-------------------------
     static void criarLinhaTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int i){
 
        
@@ -205,7 +205,7 @@ public class MyMediaManage {
     }    
 
 
-    //------------------------------------------------Metodo: retorna x ou vazio conforme foi visto--------------------
+    //-------------------------------- Metodo: retorna x ou vazio conforme foi visto--------------------
     static char FazedorDeCruz(boolean visto[],int i){
       
         char cruz='X', vazio= ' ';
@@ -217,156 +217,9 @@ public class MyMediaManage {
 
     }
 
-     //------------------------------------------------Metodo: Visualizar todos-------------------------
-    static void visualizarTodos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-        
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-            
-        }
-
-        System.out.println("\n\n");
-
-
-        }
-
-    //------------------------------------------------Metodo: Visualizar por ano-------------------------
-
-
-    static void visualizarPorAno(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-        System.out.print("\nDigite o ano escolhido: ");
-
-        int anoEscolhido = lerInt();
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(anoEscolhido == ano[i]){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
-        }
-
-        System.out.println("\n\n");
-     
-    }
-
-    //------------------------------------------------Metodo: Visualizar por nao visto-------------------------
-    static void visualizarPorNaoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(visto[i] == false){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
-        }
-
-        System.out.println("\n\n");
-     
-    }
-
-    //------------------------------------------------Metodo: Visualizar por ja visto-------------------------
-    static void visualizarPorJaVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(visto[i] == true){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
-        }
-
-        System.out.println("\n\n");
-     
-    }  
     
-    //------------------------------------------------Metodo: Visualizar por palavra que contenha no titulo------------------------
-    static void visualizarPorPalavra(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
-        System.out.print("\nDigite a palavra escolhido: ");
-        String palavra = lerStringPalavra();
-        cabecalhoTabela();
-        
-        for(int i = 0; i < nItens; i++){
-
-            int contador = 0;
-
-            // Converte titulo do filme em array  divididos por palavras
-            String [] tituloPorPalavra = titulo[i].split(" ");
-
-                for(int j = 0; j < tituloPorPalavra.length; j++){
-
-                    //verifica cada palavra do array comparando com a palavra introduzida pelo utilizador, ignorando sensitiveCase
-                    //e tambem imprime quando encontrar apenas um elemento, ou seja, se conter palavras repetidas no filme ainda sim sera impresso 1 vez
-                    if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1){
-
-                        criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-                        contador++;
-                    }
-                }
-                        
-        }
-        System.out.println("\n\n");
-
-    } 
-
-    //------------------------------------------------Metodo: Visualizar por nota minima-------------------------
-    static void visualizarPorRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-        System.out.print("\nDigite a nota minima do filme devera ter: ");
-
-        int notaEscolhida = lerInt();
-
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
-        }
-
-        System.out.println("\n\n");
-     
-    } 
-
-    //------------------------------------------------Metodo: MultiCriterio-------------------------
-    static void visualizarPorMulticriterio(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
-        System.out.print("\nDigite a nota minima do filme devera ter: ");
-
-        int notaEscolhida = lerInt();
-
-
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
-        }
-
-        System.out.println("\n\n");
-     
-    } 
-
-    //------------------------------------------------Metodo: Menu Visualizar---------------------------------------------
+    //=========================================================== MENU VISUALIZAR ==========================================================
     static void menuVisualizar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
         limparTela();
@@ -420,8 +273,157 @@ public class MyMediaManage {
         }while(opcao!='v');
     }
 
+    //-------------------------------- Metodo: Visualizar todos-------------------------
+    static void visualizarTodos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
-    //------------------------------------------------Metodo: Menu Marcar---------------------------------------------
+        
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+            
+        }
+
+        System.out.println("\n\n");
+
+
+        }
+
+    //-------------------------------- Metodo: Visualizar por ano-------------------------
+
+
+    static void visualizarPorAno(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite o ano escolhido: ");
+
+        int anoEscolhido = lerInt();
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(anoEscolhido == ano[i]){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }
+
+    //-------------------------------- Metodo: Visualizar por nao visto-------------------------
+    static void visualizarPorNaoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(visto[i] == false){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }
+
+    //-------------------------------- Metodo: Visualizar por ja visto-------------------------
+    static void visualizarPorJaVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(visto[i] == true){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }  
+    
+    //-------------------------------- Metodo: Visualizar por palavra que contenha no titulo------------------------
+    static void visualizarPorPalavra(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a palavra escolhido: ");
+        String palavra = lerStringPalavra();
+        cabecalhoTabela();
+        
+        for(int i = 0; i < nItens; i++){
+
+            int contador = 0;
+
+            // Converte titulo do filme em array  divididos por palavras
+            String [] tituloPorPalavra = titulo[i].split(" ");
+
+                for(int j = 0; j < tituloPorPalavra.length; j++){
+
+                    //verifica cada palavra do array comparando com a palavra introduzida pelo utilizador, ignorando sensitiveCase
+                    //e tambem imprime quando encontrar apenas um elemento, ou seja, se conter palavras repetidas no filme ainda sim sera impresso 1 vez
+                    if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1){
+
+                        criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+                        contador++;
+                    }
+                }
+                        
+        }
+        System.out.println("\n\n");
+
+    } 
+
+    //-------------------------------- Metodo: Visualizar por nota minima-------------------------
+    static void visualizarPorRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    } 
+
+    //-------------------------------- Metodo: MultiCriterio-------------------------
+    static void visualizarPorMulticriterio(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    } 
+
+
+    //=========================================================== MENU MARCAR ==========================================================
     static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
         limparTela();
@@ -451,7 +453,7 @@ public class MyMediaManage {
         }while(opcao!='v');
     }
 
-    //------------------------------------------------Metodo: Menu Editar--------------------------------------------
+    //=========================================================== MENU EDITAR ==========================================================
     static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
         int pos;
@@ -529,6 +531,7 @@ public class MyMediaManage {
                 }
                 break;
             case ('v'): //Volta para o menu principal.
+                limparTela();
                 break;
             
                    
@@ -637,7 +640,7 @@ public class MyMediaManage {
     }
 
 
-    //------------------------------------------------Metodo: Menu Estatistica----------------------------------------
+    //=========================================================== MENU ESTATISTICA ==========================================================
     static void menuEstatisticas(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
         limparTela();

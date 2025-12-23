@@ -71,6 +71,7 @@ public class MyMediaManage {
                     break;    
             
                 default:
+                    limparTela();
                     System.out.println("**** Opcao invalida ****\n\n");
                     break;
             }
@@ -97,6 +98,51 @@ public class MyMediaManage {
         Scanner teclado = new Scanner(System.in);
         String resultado = teclado.nextLine();
         //teclado.close();
+        return resultado;
+
+    }
+
+    //------------------------------------------------Metodo: Ler Inteiros-----------------------------------------------
+    static int lerInt(){
+
+        @SuppressWarnings("resource")
+        Scanner teclado = new Scanner(System.in);
+
+        while (!teclado.hasNextInt()) {
+
+            teclado.nextLine();    
+        }
+
+        int num = teclado.nextInt();
+        return num;
+
+    }
+
+    //------------------------------------------------Metodo: Ler Inteiros com restricao de  intervalo-----------------------------------------------
+    static int lerInt(int min, int max){
+
+        
+        int num = lerInt();;
+
+        while (num < min || num > max) {
+
+            num = lerInt();
+            
+        }
+
+        
+        
+        return num;
+
+    }
+
+
+    //------------------------------------------------Metodo: Ler String-----------------------------------------------
+    static String lerStringPalavra (){
+
+        @SuppressWarnings("resource")
+        Scanner teclado = new Scanner(System.in);
+        String resultado = teclado.next();
         return resultado;
 
     }
@@ -142,6 +188,24 @@ public class MyMediaManage {
         System.out.println("\n\n\n");
     }
 
+    //------------------------------------------------Metodo: Cria cabeçalho tabela-------------------------
+    static void cabecalhoTabela(){
+
+        limparTela();
+        System.out.printf("%-4s%s%15s%15s%15s%15s\n----------------------------------------------------------------------\n", "No", "Titulo", "Tipo", "Ano", "Visto", "Rating");
+        
+    }
+
+    //------------------------------------------------Metodo: Cria tabela com array dos filmes-------------------------
+    static void criarLinhaTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int i){
+
+       
+
+        System.out.printf("%-4d%-18s%-15c%-14d%-14c%2d\n", i+1, titulo[i], tipo[i],ano[i],FazedorDeCruz(visto, i),rating[i]);
+            
+       
+    }    
+
 
     //------------------------------------------------Metodo: retorna x ou vazio conforme foi visto--------------------
     static char FazedorDeCruz(boolean visto[],int i){
@@ -155,7 +219,156 @@ public class MyMediaManage {
 
     }
 
-     //------------------------------------------------Metodo: Menu Visualizar---------------------------------------------
+     //------------------------------------------------Metodo: Visualizar todos-------------------------
+    static void visualizarTodos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+            
+        }
+
+        System.out.println("\n\n");
+
+
+        }
+
+    //------------------------------------------------Metodo: Visualizar por ano-------------------------
+
+
+    static void visualizarPorAno(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite o ano escolhido: ");
+
+        int anoEscolhido = lerInt();
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(anoEscolhido == ano[i]){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }
+
+    //------------------------------------------------Metodo: Visualizar por nao visto-------------------------
+    static void visualizarPorNaoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(visto[i] == false){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }
+
+    //------------------------------------------------Metodo: Visualizar por ja visto-------------------------
+    static void visualizarPorJaVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(visto[i] == true){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    }  
+    
+    //------------------------------------------------Metodo: Visualizar por palavra que contenha no titulo------------------------
+    static void visualizarPorPalavra(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a palavra escolhido: ");
+        String palavra = lerStringPalavra();
+        cabecalhoTabela();
+        
+        for(int i = 0; i < nItens; i++){
+
+            int contador = 0;
+
+            // Converte titulo do filme em array  divididos por palavras
+            String [] tituloPorPalavra = titulo[i].split(" ");
+
+                for(int j = 0; j < tituloPorPalavra.length; j++){
+
+                    //verifica cada palavra do array comparando com a palavra introduzida pelo utilizador, ignorando sensitiveCase
+                    //e tambem imprime quando encontrar apenas um elemento, ou seja, se conter palavras repetidas no filme ainda sim sera impresso 1 vez
+                    if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1){
+
+                        criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+                        contador++;
+                    }
+                }
+                        
+        }
+        System.out.println("\n\n");
+
+    } 
+
+    //------------------------------------------------Metodo: Visualizar por nota minima-------------------------
+    static void visualizarPorRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    } 
+
+    //------------------------------------------------Metodo: MultiCriterio-------------------------
+    static void visualizarPorMulticriterio(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+     
+    } 
+
+    //------------------------------------------------Metodo: Menu Visualizar---------------------------------------------
     static void menuVisualizar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
         limparTela();
@@ -177,12 +390,28 @@ public class MyMediaManage {
             
 
             switch (opcao) {
-                case ('t'):
-                    fazedorTabela(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                case 't':
+                    visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'a':
+                    visualizarPorAno(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'j':
+                    visualizarPorJaVisto(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'n':
+                    visualizarPorNaoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'p':
+                    visualizarPorPalavra(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    break;
+                case 'r':
+                    visualizarPorRating(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
 
-                case ('v'):
-                    menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                case 'v':
+                    //menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    limparTela();
                     break;
                
             
@@ -215,7 +444,6 @@ public class MyMediaManage {
 
             switch (opcao) {
             case ('v'):
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
                 break;
             
         
@@ -305,7 +533,6 @@ public class MyMediaManage {
                 }
                 break;
             case ('v'): //Volta para o menu principal.
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens); 
                 break;
             
                    
@@ -380,13 +607,7 @@ public class MyMediaManage {
         return c;
     }
 
-    static int lerInt(){
-        
-        Scanner teclado = new Scanner(System.in);
-        int n = teclado.nextInt();
-        
-        return n;
-    }
+
 
     static boolean lerBooleano(){
         Scanner teclado = new Scanner(System.in);
@@ -438,23 +659,7 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
-                
-                case('P') :
-                    precentagemVistos(tamMax, titulo, tipo, ano, visto, rating, nItens);
-                break;
-                
-                case('M') :
-                    mediaRating(tamMax, titulo, tipo, ano, visto, rating, nItens);
-                break;
-                
-                case('d') :
-
-                    disDecada(tamMax, titulo, tipo, ano, visto, rating, nItens);
-
-                break;
-            
-            
-                case ('v'):
+            case ('v'):
                 menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
                 break;
             

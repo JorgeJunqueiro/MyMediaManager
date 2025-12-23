@@ -160,11 +160,11 @@ public class MyMediaManage {
         }
 
         // Verificar de é Maisucla e converte para minuscula
-        char opcao = palavra;
-        if (opcao >= 'A' && opcao <= 'Z'){
+        char opcao = palavra.charAt(0);
+        /*if (opcao >= 'A' && opcao <= 'Z'){
             int dif = 'a' - 'A';
             return (char)(opcao+dif);
-        }
+        }*/
         
         
         return opcao;
@@ -507,8 +507,6 @@ public class MyMediaManage {
                 break;
 
             case('p'): //Apaga na Posição pretendida.
-                
-                
                 if(nItens!=0){
                     System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
                     pos = lerInt();
@@ -525,16 +523,23 @@ public class MyMediaManage {
                 break;         
             
             case('v'): //apaga os vistos
-                for(int i=nItens-1;i>=0;i--){
+            
+                for(int i=tamMax-1;i>=0;i--){
+                    
                     if(visto[i]==true){
-                        pos=i;
                         
+                        pos=i;
                         apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                         nItens--;
                     }
+                    
+                    
                 }
                 break;
-            case ('v'): //Volta para o menu principal.
+            case ('V'): //Volta para o menu principal.
+
+                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
                 break;
             
                    
@@ -543,7 +548,7 @@ public class MyMediaManage {
                 break;
             }
         
-        }while(opcao!='v');
+        }while(opcao!='V');
     }
 
     static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
@@ -733,11 +738,7 @@ public class MyMediaManage {
     boolean[] visto = new boolean[tamMax];
     int[] rating = new int[tamMax];
     int nItens=4;
-    //carrega o string titulo com vazio.
-    for(int i=0;i<titulo.length;i++){
-        titulo[i]="Espaço vazio.";
-        visto[i]=false;
-    }
+    
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;

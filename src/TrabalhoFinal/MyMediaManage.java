@@ -493,9 +493,7 @@ public class MyMediaManage {
                 if(pos<nItens){
                     movimentar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                     adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
-                    if(nItens<tamMax){
-                        nItens++;
-                    }
+                    
                 }else{
                     pos=nItens;
                     adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
@@ -531,9 +529,7 @@ public class MyMediaManage {
                         pos=i;
                         apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                         nItens--;
-                    }
-                    
-                    
+                    }                    
                 }
                 break;
             case ('V'): //Volta para o menu principal.
@@ -552,7 +548,7 @@ public class MyMediaManage {
     }
 
     static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
-
+    //este metedo apaga a posição pretendida, basicamente faz o inversto do movimentar.
         for(int i=pos;i<nItens;i++){
 
             titulo[i]=titulo[i+1];
@@ -566,7 +562,7 @@ public class MyMediaManage {
     }
 
     static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
-        
+    //este metedo faz abre um espaço para colocar outro item
         for(int i=nItens-1;i>pos;i--){
 
             titulo[i]=titulo[i-1];
@@ -579,7 +575,7 @@ public class MyMediaManage {
     }
 
     static void adicionar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
-
+        //apos abrir o espaço usa-se este metedo para adicionar o item
         System.out.println("Introduza o titulo: ");
         titulo[pos]= lerString();
         System.out.println("Introduza o tipo: ");
@@ -594,6 +590,7 @@ public class MyMediaManage {
     }
 
     static char tipoMaiusculo(){
+        //este metedo faz com que o char introduzido no tipo de item seja S ou F maiusculos
         char c;
         do{
             c=lerChar();
@@ -610,6 +607,7 @@ public class MyMediaManage {
     }
 
     static boolean lerBooleano(){
+        //este metedo le booleano e insere no array
         Scanner teclado = new Scanner(System.in);
         boolean b=false;
         String simNao;
@@ -628,6 +626,7 @@ public class MyMediaManage {
     }
 
     static int lerRating(){
+        //este metedo chama o metedo ler int e verifica se está dentro dos parametros.
         int n;
         do{
             n=lerInt();
@@ -684,6 +683,7 @@ public class MyMediaManage {
     }
 
     static void mediaRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    //este metedo faz a media dos ratings    
         double nVistos=0;
          int rate=0;
         
@@ -699,6 +699,7 @@ public class MyMediaManage {
     }
 
     static void precentagemVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    //este metedo faz a precentagem dos vistos 
         double precentagem=0, nVistos=0;
         for(int i=0;i<nItens;i++){
             if(visto[i]==true){
@@ -711,7 +712,7 @@ public class MyMediaManage {
     }
 
     static void disDecada(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
-
+    //este metedo faz a distribuição por decada.
         int dNoventa=0, dZeros=0, dDez=0, dVintes=0;
 
             for(int i=0;i<nItens;i++){

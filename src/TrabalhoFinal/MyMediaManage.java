@@ -24,8 +24,7 @@ falta fazer apagar na linha e apagar vistos *feito
 vou jantar *feito
 coloquei tudo do editar em metedos bonitinhos zaga zaga.
 temos de ter atenção aos cases para correspondrem as letras. *atençao!!!!!
-
-
+temos tambem de ter atenção as proteções dos inputs.
 */
 
 package TrabalhoFinal;
@@ -564,13 +563,11 @@ public class MyMediaManage {
     static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
     //este metedo apaga a posição pretendida, basicamente faz o inversto do movimentar.
         for(int i=pos;i<nItens-1;i++){
-
             titulo[i]=titulo[i+1];
             tipo[i]=tipo[i+1];
             ano[i]=ano[i+1];
             visto[i]=visto[i+1];
             rating[i]=rating[i+1];
-            
         }
         
     }
@@ -578,7 +575,6 @@ public class MyMediaManage {
     static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
     //este metedo faz abre um espaço para colocar outro item
         for(int i=nItens-1;i>pos;i--){
-
             titulo[i]=titulo[i-1];
             tipo[i]=tipo[i-1];
             ano[i]=ano[i-1];
@@ -651,8 +647,6 @@ public class MyMediaManage {
             }
         }while(n<0 || n>10);
             return n;
- 
-
 
     }
 
@@ -739,14 +733,11 @@ public class MyMediaManage {
             }
 
         System.out.printf("\n1990-1999: %d \n2000-2009: %d \n2010-2019: %d \n2020-2029: %d\n",dNoventa,dZeros,dDez,dVintes);
-
     }
-
 
     //===============================================     MAIN     =================================================
 
     public static void main(String[] args) {
-
    
     int tamMax = 5;
     String[] titulo = new String[tamMax];
@@ -755,7 +746,6 @@ public class MyMediaManage {
     boolean[] visto = new boolean[tamMax];
     int[] rating = new int[tamMax];
     int nItens=4;
-    
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;
@@ -765,8 +755,5 @@ public class MyMediaManage {
     menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
    
     }
-
-        
-
 }
 

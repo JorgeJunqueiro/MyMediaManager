@@ -402,6 +402,7 @@ public class MyMediaManage {
     int opcaoTipo, opcaoVisto, opcaoAno, opcaoNota;
     int anoMin = -1, anoMax = -1;
     int notaMin = -1, notaMax = -1;
+    boolean encontrou = false;
      
                          
         do {
@@ -496,11 +497,10 @@ public class MyMediaManage {
 
         for (int i = 0; i < nItens; i++) {
 
-            // 1 FILME / 2 SERIE    
+            // logica: Se algum filtro estiver ativo e o item NÃO atender, descarte o item com continue
             if (opcaoTipo == 1 && tipo[i] != 'F') continue;
             if (opcaoTipo == 2 && tipo[i] != 'S') continue;
 
-            // 1 TRUE / 2 FALSE  
             if (opcaoVisto == 1 && !visto[i]) continue;
             if (opcaoVisto == 2 && visto[i]) continue;
 
@@ -510,15 +510,16 @@ public class MyMediaManage {
             if (notaMin != -1 && rating[i] < notaMin) continue;
             if (notaMax != -1 && rating[i] > notaMax) continue;
 
+            encontrou = true;
             criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
         }
+
+        if (!encontrou) {
+        System.out.println("Nenhum item corresponde aos filtros selecionados.");
+        }
+
+        System.out.println("\n\n");
                           
-                              
-                              
-
-        
- 
-
      
     } 
 

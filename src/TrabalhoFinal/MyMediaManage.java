@@ -137,7 +137,7 @@ public class MyMediaManage {
     }
 
 
-    //------------------------------------------------Metodo: Ler String-----------------------------------------------
+    //------------------------------------------------Metodo: Ler String por palavra -----------------------------------------------
     static String lerStringPalavra (){
 
         @SuppressWarnings("resource")
@@ -177,7 +177,7 @@ public class MyMediaManage {
     static void fazedorTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
         limparTela();
-        System.out.println(nItens);
+        
         System.out.printf("%-4s%s%15s%15s%15s%15s\n----------------------------------------------------------------------\n", "No", "Titulo", "Tipo", "Ano", "Visto", "Rating");
         for(int i=0;i<nItens;i++){
 
@@ -196,7 +196,7 @@ public class MyMediaManage {
         
     }
 
-    //------------------------------------------------Metodo: Cria tabela com array dos filmes-------------------------
+    //------------------------------------------------Metodo: Cria tabela com array dos filmes uma linha-------------------------
     static void criarLinhaTabela(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int i){
 
        
@@ -410,7 +410,6 @@ public class MyMediaManage {
                     break;
 
                 case 'v':
-                    //menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     limparTela();
                     break;
                
@@ -427,7 +426,6 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: Menu Marcar---------------------------------------------
     static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         char opcao = 'a';
-        
         limparTela();
         do{
             System.out.println("+==================   MENU  =======================+");
@@ -560,7 +558,6 @@ public class MyMediaManage {
 
     }
 
-
     static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
         
         for(int i=nItens-1;i>pos;i--){
@@ -647,7 +644,7 @@ public class MyMediaManage {
         char opcao = 'a';
         limparTela();
         do{
-            System.out.println("+==================   MENU  =======================+");
+            System.out.println("+==================   ESTATISTICA  =================+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," * (P)ercentagem de vistos");
             System.out.printf("|%-50s|%n"," * (M)édia de rating dos vistosn");
@@ -660,7 +657,7 @@ public class MyMediaManage {
 
             switch (opcao) {
             case ('v'):
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                limparTela();
                 break;
             
         
@@ -672,7 +669,6 @@ public class MyMediaManage {
         }while(opcao!='v');
     }
 
-    
     static void mediaRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
         double nVistos=0;
          int rate=0;
@@ -729,10 +725,10 @@ public class MyMediaManage {
     int[] rating = new int[tamMax];
     int nItens=4;
     //carrega o string titulo com vazio.
-    /*for(int i=0;i<titulo.length;i++){
+    for(int i=0;i<titulo.length;i++){
         titulo[i]="Espaço vazio.";
         visto[i]=false;
-    }*/
+    }
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;

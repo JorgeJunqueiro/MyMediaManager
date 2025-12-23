@@ -284,11 +284,10 @@ public class MyMediaManage {
         System.out.println("\n\n");
 
 
-        }
+    }
 
+    
     //-------------------------------- Metodo: Visualizar por ano-------------------------
-
-
     static void visualizarPorAno(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
         System.out.print("\nDigite o ano escolhido: ");
@@ -407,6 +406,7 @@ public class MyMediaManage {
                          
         do {
             limparTela();
+            visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
             System.out.println("+==================   Filtrar por tipo?  ==========+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," 1 - Filme");
@@ -420,7 +420,8 @@ public class MyMediaManage {
                             
         
         do {
-            limparTela();                  
+            limparTela();   
+            visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);               
             System.out.println("+==================   Filtrar por status?  ========+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," 1- Já visto");
@@ -434,6 +435,7 @@ public class MyMediaManage {
                             
         do {
             limparTela();
+            visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
             System.out.println("+==================   Filtrar por ano?  ===========+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," 1- Ano específico");
@@ -459,6 +461,7 @@ public class MyMediaManage {
     
         do {
             limparTela();
+            visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
             System.out.println("+==================   Filtrar por nota?  ==========+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," 1- Maior ou igual a X");
@@ -553,6 +556,29 @@ public class MyMediaManage {
         
         }while(opcao!='v');
     }
+
+    //-------------------------------- Metodo: Marcar como visto -------------------------
+    static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        System.out.print("\nDigite a nota minima do filme devera ter: ");
+
+        int notaEscolhida = lerInt();
+
+
+        cabecalhoTabela();
+        for(int i = 0; i < nItens; i++){
+
+            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
+
+                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
+
+            }
+        }
+
+        System.out.println("\n\n");
+    } 
+
+    
 
     //=========================================================== MENU EDITAR ==========================================================
     static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){

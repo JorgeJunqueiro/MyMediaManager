@@ -153,7 +153,7 @@ public class MyMediaManage {
         //System.out.print("\n\nEscolha sua opcao: "); isto não pode ficar aqui senão não dá para utilizar noutros sitios.
         String palavra = lerString();
 
-        //Verifica se o usuario digitou mais que 1 letra
+        //Verifica se o utilizador digitou mais que 1 letra
         if(palavra.length() > 1){
             System.out.println("\n**** Escolha apenas uma letra ****");//aqui a mesma coisa
             lerChar();
@@ -477,7 +477,7 @@ public class MyMediaManage {
 
             case ('a'): //Adinciona filme no final
                 
-                if(nItens!=tamMax){
+                if(nItens<tamMax){
                     pos=nItens;
                     adicionar(tamMax, titulo, tipo, ano, visto,  rating,  nItens, pos);
                     nItens++;
@@ -515,6 +515,7 @@ public class MyMediaManage {
                         if(pos>nItens){
                             System.out.println("Esse numero está vazio.");
                         }else{
+                            
                             apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                             nItens--;
                         }    
@@ -523,16 +524,20 @@ public class MyMediaManage {
                 }
                 break;         
             
-            case('t'): //apaga os vistos
-                for(int i=nItens;i>=0;i--){
+            case('v'): //apaga os vistos
+                for(int i=nItens-1;i>=0;i--){
                     if(visto[i]==true){
                         pos=i;
+                        
                         apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                         nItens--;
                     }
                 }
                 break;
-            case ('v'): //Volta para o menu principal.
+            case ('V'): //Volta para o menu principal.
+
+                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens); 
+                
                 break;
             
                    
@@ -555,9 +560,7 @@ public class MyMediaManage {
             rating[i]=rating[i+1];
             
         }
-
-
-
+        
     }
 
 
@@ -571,9 +574,7 @@ public class MyMediaManage {
             visto[i]=visto[i-1];
             rating[i]=rating[i-1];
         }
-
-
-
+        
     }
 
     static void adicionar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
@@ -606,8 +607,6 @@ public class MyMediaManage {
         }while(c!='C'||c!='F');
         return c;
     }
-
-
 
     static boolean lerBooleano(){
         Scanner teclado = new Scanner(System.in);
@@ -650,7 +649,7 @@ public class MyMediaManage {
             System.out.println("+==================   MENU  =======================+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," * (P)ercentagem de vistos");
-            System.out.printf("|%-50s|%n"," * (M)édia de rating dos vistosn");
+            System.out.printf("|%-50s|%n"," * (M)édia de rating dos vistos");
             System.out.printf("|%-50s|%n"," * Distribuição por (d)écada");
             System.out.printf("|%-50s|%n"," * (V)oltar");
             System.out.printf("|%-50s|%n", "");
@@ -659,6 +658,17 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
+
+            case ('P'):
+                precentagemVistos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                break;
+            case ('M'):
+                mediaRating(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                break;
+            case ('d'):
+                disDecada(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                break;
+
             case ('v'):
                 menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
                 break;

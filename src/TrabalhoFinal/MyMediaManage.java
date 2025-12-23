@@ -150,23 +150,21 @@ public class MyMediaManage {
     //------------------------------------------------Metodo: ler char e tranforma para minuscula se necessario--------
     static char lerChar (){
 
-        //System.out.print("\n\nEscolha sua opcao: "); isto não pode ficar aqui senão não dá para utilizar noutros sitios.
-        String palavra = lerString();
-
-        //Verifica se o usuario digitou mais que 1 letra
-        if(palavra.length() > 1){
-            System.out.println("\n**** Escolha apenas uma letra ****");//aqui a mesma coisa
-            lerChar();
-        }
-
-        // Verificar de é Maisucla e converte para minuscula
-        char opcao = palavra.charAt(0);
-        /*if (opcao >= 'A' && opcao <= 'Z'){
-            int dif = 'a' - 'A';
-            return (char)(opcao+dif);
-        }*/
+        Scanner teclado = new Scanner(System.in);
+        
+        System.out.print("\n\nEscolha sua opcao: ");
+        char palavra = teclado.next().charAt(0);
         
 
+
+        // Verificar de é Maisucla e converte para minuscula
+        char opcao = palavra;
+        if (opcao >= 'A' && opcao <= 'Z'){
+            int dif = 'a' - 'A';
+            return (char)(opcao+dif);
+        }
+        
+        
         return opcao;
     }
 

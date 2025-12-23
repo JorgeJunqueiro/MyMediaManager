@@ -39,7 +39,7 @@ public class MyMediaManage {
        limparTela();
        do{
             
-            //System.out.println(nItens);//para debug apagar depois
+            System.out.println(nItens);//para debug apagar depois
             System.out.println("+==================   MENU  =======================+");
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.printf("|%-25s %25s%n"," * (V)isualizar","|");
@@ -52,7 +52,7 @@ public class MyMediaManage {
 
 
 
-            opcao = lerChar();
+            opcao = lerCharIgnoreCase();
 
             switch (opcao) {
                 case ('V'):
@@ -163,6 +163,26 @@ public class MyMediaManage {
             int dif = 'a' - 'A';
             return (char)(opcao+dif);
         }*/
+        
+        
+        return opcao;
+    }
+
+    static char lerCharIgnoreCase(){
+
+        Scanner teclado = new Scanner(System.in);
+        
+        System.out.print("\n\nEscolha sua opcao: ");
+        char palavra = teclado.next().charAt(0);
+        
+
+
+        // Verificar de é Maisucla e converte para minuscula
+        char opcao = palavra;
+        if (opcao >= 'A' && opcao <= 'Z'){
+            int dif = 'a' - 'A';
+            return (char)(opcao+dif);
+        }
         
         
         return opcao;

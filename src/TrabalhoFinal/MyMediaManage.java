@@ -438,7 +438,23 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
-            case ('v'):
+                
+                case('P') :
+                    precentagemVistos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                break;
+                
+                case('M') :
+                    mediaRating(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                break;
+                
+                case('d') :
+
+                    disDecada(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
+                break;
+            
+            
+                case ('v'):
                 menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
                 break;
             
@@ -449,6 +465,49 @@ public class MyMediaManage {
             }
         
         }while(opcao!='v');
+    }
+
+    
+    static void mediaRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+        double nVistos=0;
+         int rate=0;
+        
+        for(int i=0;i<nItens;i++){
+            if(visto[i]==true){
+                rate=rate+rating[i];
+                nVistos++;
+            }
+        }
+        System.out.printf("Media de rating dos vistos: %.2f\n", rate/nVistos);
+
+
+    }
+
+    static void precentagemVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+        double precentagem=0, nVistos=0;
+        for(int i=0;i<nItens;i++){
+            if(visto[i]==true){
+                nVistos++;
+            }
+        }
+        precentagem=nVistos/nItens;
+        System.out.printf("\nPrecentagem de vistos: %.2f%%\n" , precentagem*100);
+
+    }
+
+    static void disDecada(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+
+        int dNoventa=0, dZeros=0, dDez=0, dVintes=0;
+
+            for(int i=0;i<nItens;i++){
+                if(ano[i]>=1990 && ano[i]<2000) dNoventa++;
+                else if(ano[i]>=2000 && ano[i]<2010) dZeros++;
+                else if(ano[i]>=2010 && ano[i]<2020) dDez++;
+                else if(ano[i]>=2020 && ano[i]<2030) dVintes++;
+            }
+
+        System.out.printf("\n1990-1999: %d \n2000-2009: %d \n2010-2019: %d \n2020-2029: %d\n",dNoventa,dZeros,dDez,dVintes);
+
     }
 
 

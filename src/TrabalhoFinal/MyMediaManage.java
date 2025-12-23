@@ -23,7 +23,7 @@ fiz metedos para leitura de boolean, int, ler rating, movimentar e adicionar (te
 falta fazer apagar na linha e apagar vistos *feito
 vou jantar *feito
 coloquei tudo do editar em metedos bonitinhos zaga zaga.
-temos de ter atenção aos cases para correspondrem as letras. *atençao!!!!!
+temos de ter atenção aos cases para correspondrem as letras. * feito atenção as maiusculas
 temos tambem de ter atenção as proteções dos inputs.
 */
 
@@ -39,7 +39,7 @@ public class MyMediaManage {
        limparTela();
        do{
             
-
+            System.out.println(nItens);//para debug apagar depois
             System.out.println("+==================   MENU  =======================+");
             System.out.printf("|%-25s %25s%n", "","|");
             System.out.printf("|%-25s %25s%n"," * (V)isualizar","|");
@@ -55,13 +55,13 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
-                case ('v'):
+                case ('V'):
                     menuVisualizar(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
-                case ('m'):
+                case ('M'):
                     menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
-                case ('e'):
+                case ('E'):
                     menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
                 case ('t'):
@@ -182,7 +182,7 @@ public class MyMediaManage {
             System.out.printf("%-4d%-18s%-15c%-14d%-14c%2d\n", i+1, titulo[i], tipo[i],ano[i],FazedorDeCruz(visto, i),rating[i]);
             
         }
-
+ 
         System.out.println("\n\n\n");
     }
 
@@ -515,19 +515,22 @@ public class MyMediaManage {
 
     static void adicionarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
     //Este metedo adiciona na posição pretendida.
-        System.out.println("Introduza a posição em que pretende colocar: ");
-        int pos = lerInt()-1; 
-        if(pos<nItens){ 
-                    movimentar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
-                    adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
-                    //Em relação ao nItens, aqui é necessario mas se tivesse no metedo adicionava.
-                }else{
-                    pos=nItens;
-                    adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
-                    if(nItens<tamMax){
-                        nItens++;
+        
+            System.out.println("Introduza a posição em que pretende colocar: ");
+            int pos = lerInt()-1; 
+            if(pos<nItens){ 
+                        movimentar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                        adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                        if(nItens<tamMax){
+                            nItens++;
+                        }
+                    }else{
+                        pos=nItens;
+                        adicionar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
+                        if(nItens<tamMax){
+                            nItens++;
+                        }
                     }
-                }
         menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
     }
 
@@ -574,7 +577,7 @@ public class MyMediaManage {
 
     static void movimentar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
     //este metedo faz abre um espaço para colocar outro item
-        for(int i=nItens-1;i>pos;i--){
+        for(int i=tamMax-1;i>pos;i--){
             titulo[i]=titulo[i-1];
             tipo[i]=tipo[i-1];
             ano[i]=ano[i-1];

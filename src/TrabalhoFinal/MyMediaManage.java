@@ -32,7 +32,7 @@ import java.util.Scanner;
 //=================================================================== MENU PRINCIPAL ============================================================
 public class MyMediaManage {
 
-    static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
 
        char opcao = 'a';
         
@@ -56,16 +56,16 @@ public class MyMediaManage {
 
             switch (opcao) {
                 case ('V'):
-                    menuVisualizar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    menuVisualizar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
                     break;
                 case ('M'):
-                    menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
                     break;
                 case ('E'):
-                    menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                     break;
                 case ('t'):
-                    menuEstatisticas(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                    menuEstatisticas(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                     break;    
                 case ('S'):
                     break; 
@@ -76,7 +76,7 @@ public class MyMediaManage {
                     break;
             }
 
-        }while (opcao != 's');
+        }while (opcao != 'S');
          
 
     }
@@ -102,7 +102,7 @@ public class MyMediaManage {
 
     }
 
-    //-------------------------------- Metodo: Ler Inteiros-----------------------------------------------
+    //-------------------------------- Metodo: Ler Inteiros e somente inteiros-----------------------------------------------
     static int lerInt(){
 
         @SuppressWarnings("resource")
@@ -119,22 +119,28 @@ public class MyMediaManage {
     }
 
     //-------------------------------- Metodo: Ler Inteiros com restricao de  intervalo-----------------------------------------------
-    static int lerInt(int min, int max){
-
-        
-        int num = lerInt();;
+    static int lerInt(int min, int max, String msg){
+        int num = lerInt();
 
         while (num < min || num > max) {
 
+            System.out.print(msg);
             num = lerInt();
             
         }
-
-        
-        
         return num;
-
     }
+
+
+    //-------------------------------- Metodo: Ler Inteiros com restricao de  intervalo entre zero e max e apresnta msg-----------------------------------------------
+    static int lerInt(int max, String msg){
+
+      
+        return lerInt(0,max, msg);
+    }
+
+        
+
 
 
     //-------------------------------- Metodo: Ler String por palavra -----------------------------------------------
@@ -213,11 +219,11 @@ public class MyMediaManage {
     
 
     //=========================================================== MENU VISUALIZAR ==========================================================
-    static void menuVisualizar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void menuVisualizar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         char opcao = 'a';
         limparTela();
         do{
-            System.out.println("+==================================================+");
+            System.out.println("+==================  MENU VISUALIZAR ==============+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n", " * Visualizar (t)odos");
             System.out.printf("|%-50s|%n", " * Visualizar por (a)no exato");
@@ -256,8 +262,7 @@ public class MyMediaManage {
                 case 'm':
                     visualizarPorMulticriterio(tamMax, titulo, tipo, ano, visto, rating, nItens);
                     break;
-
-                case 'v':
+                case 'V':
                     limparTela();
                     break;
                
@@ -267,7 +272,7 @@ public class MyMediaManage {
                     break;
             }
         
-        }while(opcao!='v');
+        }while(opcao!='V');
     }
 
     //-------------------------------- Metodo: Visualizar todos-------------------------
@@ -528,13 +533,13 @@ public class MyMediaManage {
 
 
     //=========================================================== MENU MARCAR ==========================================================
-    static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         char opcao = 'a';
         limparTela();
         do{
-            System.out.println("+==================   MENU  =======================+");
+            System.out.println("+==================  MENU MARCAR  =================+");
             System.out.printf("|%-50s|%n", "");
-            System.out.printf("|%-50s|%n"," * Maracar como (V)isto por posição");
+            System.out.printf("|%-50s|%n"," * Marcar como (v)isto por posição");
             System.out.printf("|%-50s|%n"," * Marcar como visto por (t)ítulo");
             System.out.printf("|%-50s|%n"," * (D)esmarcar último marcado como visto");
             System.out.printf("|%-50s|%n"," * (A)tribuir / alterar rating por números");
@@ -545,7 +550,13 @@ public class MyMediaManage {
             opcao = lerChar();
 
             switch (opcao) {
+
             case ('v'):
+                marcarComoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                break;
+
+            case ('V'):
+                limparTela();
                 break;
             
         
@@ -554,38 +565,42 @@ public class MyMediaManage {
                 break;
             }
         
-        }while(opcao!='v');
+        }while(opcao!='V');
     }
 
     //-------------------------------- Metodo: Marcar como visto -------------------------
-    static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
 
-        System.out.print("\nDigite a nota minima do filme devera ter: ");
+        visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
 
-        int notaEscolhida = lerInt();
+        System.out.print("\nDigite qual posicao do item quer marcado como visto: ");
+        int itemEscolhido = lerInt(0, nItens,msg);
 
+        if (visto[itemEscolhido-1] == false) {
 
-        cabecalhoTabela();
-        for(int i = 0; i < nItens; i++){
-
-            if(rating[i]>=notaEscolhida && notaEscolhida !=0){
-
-                criarLinhaTabela(tamMax, titulo, tipo, ano, visto, rating, nItens, i);
-
-            }
+            visto[itemEscolhido-1] = true;  
+            limparTela();
+            System.out.println("Alterado com sucesso!!!"); 
         }
 
+        else {System.out.println("Ja foi visto!");}
+        
         System.out.println("\n\n");
     } 
+        
+       
+
+
+
 
     
 
     //=========================================================== MENU EDITAR ==========================================================
-    static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         char opcao = 'a';
         limparTela();
         do{
-            System.out.println("+==================   MENU  =======================+");
+            System.out.println("+==================  MENU EDITAR =================+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," * (A)dicionar item no fim");
             System.out.printf("|%-50s|%n"," * Adicionar (i)tem na posição n");
@@ -601,24 +616,24 @@ public class MyMediaManage {
 
             case ('A'): //Adinciona filme no final
                 
-                adicionarFinal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                adicionarFinal(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 
                 break;
             case ('i') : //Introduzir na posição. (Movimenta e adiciona).
                 
-                adicionarPos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                adicionarPos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
             case('p'): //Apaga na Posição pretendida.
-                apagarPos(tamMax, titulo, tipo, ano, visto,  rating,  nItens);
+                apagarPos(tamMax, titulo, tipo, ano, visto,  rating,  nItens, msg);
                 break;         
             
             case('v'): //apaga os vistos
-                apagarVistos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                apagarVistos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
             case ('V'): //Volta para o menu principal.
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+                limparTela();
                 break;
                    
             default:
@@ -629,7 +644,7 @@ public class MyMediaManage {
         }while(opcao!='V');
     }
 
-    static void adicionarFinal(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void adicionarFinal(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         int pos = nItens;
         if(nItens<tamMax){
                     adicionar(tamMax, titulo, tipo, ano, visto,  rating,  nItens, pos);
@@ -637,10 +652,10 @@ public class MyMediaManage {
                 }else{
                     System.out.println("A Lista está cheia!");
                 }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 
-    static void adicionarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void adicionarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
     //Este metedo adiciona na posição pretendida.
         
             System.out.println("Introduza a posição em que pretende colocar: ");
@@ -658,10 +673,10 @@ public class MyMediaManage {
                             nItens++;
                         }
                     }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 
-    static void apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens,String msg){
         if(nItens!=0){
                     System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
                     int pos = lerInt();
@@ -675,10 +690,10 @@ public class MyMediaManage {
                 }else if(nItens==0){
                     System.out.println("Tabela está vazia.");
                 }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 
-    static void apagarVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void apagarVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         int pos;
         for(int i=tamMax-1;i>=0;i--){
                     if(visto[i]==true){
@@ -687,7 +702,7 @@ public class MyMediaManage {
                         nItens--;
                     }                    
                 }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens);
+        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 
     static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
@@ -779,11 +794,11 @@ public class MyMediaManage {
 
 
     //=========================================================== MENU ESTATISTICA ==========================================================
-    static void menuEstatisticas(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
+    static void menuEstatisticas(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         char opcao = 'a';
         limparTela();
         do{
-            System.out.println("+==================   ESTATISTICA  =================+");
+            System.out.println("+==================  MENU ESTATISTICA  ===========+");
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," * (P)ercentagem de vistos");
             System.out.printf("|%-50s|%n"," * (M)édia de rating dos vistos");
@@ -816,7 +831,7 @@ public class MyMediaManage {
                 break;
             }
         
-        }while(opcao!='v');
+        }while(opcao!='V');
     }
 
     static void mediaRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
@@ -873,13 +888,14 @@ public class MyMediaManage {
     boolean[] visto = new boolean[tamMax];
     int[] rating = new int[tamMax];
     int nItens=4;
+    String msgDadosInvalidos = "Dados invalidos, digite novamente";
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;
     titulo[2] = "Oppenheimer"; tipo[2] = 'F'; ano[2] = 2023; visto[2] = false; rating[2] = 0;
     titulo[3] = "Dark"; tipo[3] = 'S'; ano[3] = 2017; visto[3] = false; rating[3] = 0;
 
-    menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens);
+    menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens, msgDadosInvalidos);
    
     }
 }

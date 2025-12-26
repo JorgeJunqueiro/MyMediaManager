@@ -159,7 +159,7 @@ public class MyMediaManage {
 
         Scanner teclado = new Scanner(System.in);
         
-        System.out.print("\n\nEscolha sua opcao: ");
+        //System.out.print("\n\nEscolha sua opcao: ");
         char letra = teclado.next().charAt(0);
          
         
@@ -744,7 +744,7 @@ public class MyMediaManage {
                 break;
 
             case ('V'): //Volta para o menu principal.
-                limparTela();
+                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, rating);
                 break;
                    
             default:
@@ -956,8 +956,11 @@ public class MyMediaManage {
                 nVistos++;
             }
         }
-        System.out.printf("\nMedia de rating dos vistos: %.2f\n\n", rate/nVistos);
-
+        if(nVistos>0){
+            System.out.printf("\nMedia de rating dos vistos: %.2f\n\n", rate/nVistos);
+        } else {
+            System.out.println("Não há filmes/series vistas na lista.");
+        }
 
     }
 
@@ -969,9 +972,12 @@ public class MyMediaManage {
                 nVistos++;
             }
         }
-        precentagem=nVistos/nItens;
-        System.out.printf("\nPrecentagem de vistos: %.2f%%\n\n" , precentagem*100);
-
+        if(nVistos>0){
+            precentagem=nVistos/nItens;
+            System.out.printf("\nPrecentagem de vistos: %.2f%%\n\n" , precentagem*100);
+        }else{
+            System.out.println("Não há filmes/series vistas na lista.");
+        }
     }
 
     static void disDecada(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){

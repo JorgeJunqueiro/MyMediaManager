@@ -32,7 +32,7 @@ import java.util.Scanner;
 //=================================================================== MENU PRINCIPAL ============================================================
 public class MyMediaManage {
 
-    static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static void menuPrincipal (int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
 
        char opcao = 'a';
         
@@ -59,7 +59,7 @@ public class MyMediaManage {
                     menuVisualizar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
                     break;
                 case ('M'):
-                    menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                    menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg,ultimoVisto);
                     break;
                 case ('E'):
                     menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
@@ -533,7 +533,7 @@ public class MyMediaManage {
 
 
     //=========================================================== MENU MARCAR ==========================================================
-    static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static void menuMarcar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
         char opcao = 'a';
         limparTela();
         do{
@@ -552,10 +552,13 @@ public class MyMediaManage {
             switch (opcao) {
 
             case ('v'):
-                marcarComoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                marcarComoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, ultimoVisto);
                 break;
             case ('t'):
-                marcarComoVistoPorTitulo(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                marcarComoVistoPorTitulo(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, ultimoVisto);
+                break;
+            case ('D'):
+                desmarcarUltimoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, ultimoVisto);
                 break;
 
             case ('V'):
@@ -572,18 +575,21 @@ public class MyMediaManage {
     }
 
     //-------------------------------- Metodo: Marcar como visto por posicao -------------------------
-    static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
 
         visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
 
         System.out.print("\nDigite qual posicao do item quer marcado como visto: ");
         int itemEscolhido = lerInt(0, nItens,msg);
+        
 
         if (visto[itemEscolhido-1] == false) {
 
             visto[itemEscolhido-1] = true;  
             limparTela();
             System.out.println("Alterado com sucesso!!!"); 
+            ultimoVisto[0]= (itemEscolhido-1);
+
         }
 
         else {System.out.println("Ja foi visto!");}
@@ -592,7 +598,7 @@ public class MyMediaManage {
     } 
 
     //-------------------------------- Metodo: Marcar como visto por titulo -------------------------
-    static void marcarComoVistoPorTitulo(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static void marcarComoVistoPorTitulo(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
 
         visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
 
@@ -617,6 +623,8 @@ public class MyMediaManage {
                          limparTela();
                          System.out.println(titulo[i]+ " ( Alterado para visto sucesso!!! )");
                          contador++;
+                         ultimoVisto[0] = i;
+                        
                     }
 
                      if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1 && visto[i]==true){
@@ -637,6 +645,29 @@ public class MyMediaManage {
         }
         System.out.println("\n\n");
     } 
+
+
+    //-------------------------------- Metodo: Marcar como visto por posicao -------------------------
+    static void desmarcarUltimoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
+
+        visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
+        if(ultimoVisto[0]==-1){
+            limparTela();
+            System.out.println("\n Nenhum foi  marcado com visto");
+        }
+
+        else{
+            visto[ultimoVisto[0]] = false;
+            limparTela();
+            System.out.println(titulo[ultimoVisto[0]] + "( ( Desmarcado como visto) ");
+
+        }
+
+
+        
+        System.out.println("\n\n");
+    }
         
        
 
@@ -939,13 +970,14 @@ public class MyMediaManage {
     int[] rating = new int[tamMax];
     int nItens=4;
     String msgDadosInvalidos = "Dados invalidos, digite novamente";
+    int [] ultimoVisto = {-1};
 
     titulo[0] = "The Matrix"; tipo[0] = 'F'; ano[0] = 1999; visto[0] = true; rating[0] = 9;
     titulo[1] = "Breaking Bad"; tipo[1] = 'S'; ano[1] = 2008; visto[1] = true; rating[1] = 10;
     titulo[2] = "Oppenheimer"; tipo[2] = 'F'; ano[2] = 2023; visto[2] = false; rating[2] = 0;
     titulo[3] = "Dark"; tipo[3] = 'S'; ano[3] = 2017; visto[3] = false; rating[3] = 0;
 
-    menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens, msgDadosInvalidos);
+    menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens, msgDadosInvalidos, ultimoVisto);
    
     }
 }

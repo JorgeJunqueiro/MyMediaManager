@@ -68,8 +68,8 @@ public class MyMediaManage {
                     menuEstatisticas(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                     break;    
                 case ('S'):
+                    opcao='S';
                     break; 
-            
                 default:
                     limparTela();
                     System.out.println("**** Opcao invalida ****\n\n");
@@ -726,12 +726,10 @@ public class MyMediaManage {
             switch (opcao) {
 
             case ('A'): //Adinciona filme no final
-                
                 adicionarFinal(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
-                
                 break;
+
             case ('i') : //Introduzir na posição. (Movimenta e adiciona).
-                
                 adicionarPos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
@@ -813,6 +811,7 @@ public class MyMediaManage {
                         nItens--;
                     }                    
                 }
+        System.out.println("Filmes vistos apagado!");
         menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 
@@ -859,10 +858,10 @@ public class MyMediaManage {
         char c;
         do{
             c=lerChar();
-            if (c == 's'){
+            if (c == 's'||c == 'S'){
                 c='S';
                 return c;
-            }else if(c=='f'){
+            }else if(c=='f'||c=='F'){
                 c='F';
                 return c;
             } 

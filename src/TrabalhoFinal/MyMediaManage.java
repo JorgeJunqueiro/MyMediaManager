@@ -16,16 +16,7 @@
  */
 
 
-/*----------------------------------A FAZERES/ NOTAS --------------------------------------------------
-ha um bug na saida do programa, repete varias vezes. *corrijido
-verificar o meu codigo. (jjunkas)
-fiz metedos para leitura de boolean, int, ler rating, movimentar e adicionar (tem que se organizarar)
-falta fazer apagar na linha e apagar vistos *feito
-vou jantar *feito
-coloquei tudo do editar em metedos bonitinhos zaga zaga.
-temos de ter atenção aos cases para correspondrem as letras. * feito atenção as maiusculas
-temos tambem de ter atenção as proteções dos inputs.
-*/
+
 
 package TrabalhoFinal;
 import java.util.Scanner;
@@ -39,7 +30,6 @@ public class MyMediaManage {
        limparTela();
        do{
             
-            System.out.println(nItens);//para debug apagar depois
             System.out.println("+==================  MENU  ========================+");          
             System.out.printf("|%-50s|%n", "");
             System.out.printf("|%-50s|%n"," * (V)isualizar");
@@ -50,7 +40,7 @@ public class MyMediaManage {
             System.out.printf("|%-50s|%n", "");
             System.out.println("+==================================================+");
 
-
+            //System.out.print("\n\nEscolha sua opcao: ");
 
             opcao = lerChar();
 
@@ -161,6 +151,7 @@ public class MyMediaManage {
         
         //System.out.print("\n\nEscolha sua opcao: ");
         char letra = teclado.next().charAt(0);
+        
          
         
         return letra;
@@ -789,19 +780,22 @@ public class MyMediaManage {
 
     static void apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens,String msg){
         if(nItens!=0){
-                    System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
-                    int pos = lerInt();
+                    System.out.println("Introduza o Numero do Serie/filme que pretende Eleminar: ");
+                    int pos = lerInt()-1;
                         if(pos>nItens){
                             System.out.println("Esse numero está vazio.");
                         }else{
-                            
+                            System.out.println("Serie/Filme Eliminado.");
                             apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                             nItens--;
                         }    
                 }else if(nItens==0){
                     System.out.println("Tabela está vazia.");
                 }
+         
+                
         menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+        
     }
 
     static void apagarVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
@@ -999,7 +993,7 @@ public class MyMediaManage {
 
     public static void main(String[] args) {
    
-    int tamMax = 5;
+    int tamMax = 100;
     String[] titulo = new String[tamMax];
     char[] tipo = new char[tamMax];
     int[] ano = new int[tamMax];

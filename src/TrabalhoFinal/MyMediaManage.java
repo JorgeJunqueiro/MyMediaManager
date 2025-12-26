@@ -813,7 +813,7 @@ public class MyMediaManage {
                         nItens--;
                     }                    
                 }
-        System.out.println("Filmes vistos apagado!");
+        System.out.println("Filmes vistos apagados!");
         menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 

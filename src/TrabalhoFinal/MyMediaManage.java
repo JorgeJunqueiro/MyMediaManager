@@ -110,7 +110,8 @@ public class MyMediaManage {
 
         while (!teclado.hasNextInt()) {
 
-            teclado.nextLine();    
+            teclado.nextLine();  
+            System.out.print("Nao e numero inteiro, digite novamente: ");  
         }
 
         int num = teclado.nextInt();
@@ -560,6 +561,9 @@ public class MyMediaManage {
             case ('D'):
                 desmarcarUltimoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, ultimoVisto);
                 break;
+            case ('A'):
+                marcarRating(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                break;
 
             case ('V'):
                 limparTela();
@@ -647,7 +651,7 @@ public class MyMediaManage {
     } 
 
 
-    //-------------------------------- Metodo: Marcar como visto por posicao -------------------------
+    //-------------------------------- Metodo: Desmarcar como visto o ultimo marcado como visto -------------------------
     static void desmarcarUltimoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg, int [] ultimoVisto){
 
         visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
@@ -660,7 +664,7 @@ public class MyMediaManage {
         else{
             visto[ultimoVisto[0]] = false;
             limparTela();
-            System.out.println(titulo[ultimoVisto[0]] + "( ( Desmarcado como visto) ");
+            System.out.println(titulo[ultimoVisto[0]] + "( Desmarcado como visto) ");
 
         }
 
@@ -668,6 +672,24 @@ public class MyMediaManage {
         
         System.out.println("\n\n");
     }
+
+    //-------------------------------- Metodo: Atribuir nota -------------------------
+    static void marcarRating(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+
+        visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
+        System.out.print("\nDigite qual posicao do item quer atribuir nota: ");
+        int itemEscolhido = lerInt(0, nItens,msg);
+        System.out.print("\nDigite qual classificacao de ( 1-10 ) que atribuir para: " + titulo[itemEscolhido] + ": ");
+        int notaEscolhido = lerInt(1, 10,msg);
+        
+
+        rating[itemEscolhido] = notaEscolhido;
+        limparTela();
+        System.out.println("Nota atribuida com sucesso");
+        
+        System.out.println("\n\n");
+    } 
         
        
 

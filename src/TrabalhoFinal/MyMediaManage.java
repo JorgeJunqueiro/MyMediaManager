@@ -352,7 +352,7 @@ public class MyMediaManage {
     //-------------------------------- Metodo: Visualizar por palavra que contenha no titulo------------------------
     static void visualizarPorPalavra(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens){
 
-        System.out.print("\nDigite a palavra escolhido: ");
+        System.out.print("\nDigite a palavra escolhida: ");
         String palavra = lerStringPalavra();
         cabecalhoTabela();
         
@@ -554,6 +554,9 @@ public class MyMediaManage {
             case ('v'):
                 marcarComoVisto(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
                 break;
+            case ('t'):
+                marcarComoVistoPorTitulo(tamMax, titulo, tipo, ano, visto, rating, nItens, msg);
+                break;
 
             case ('V'):
                 limparTela();
@@ -568,7 +571,7 @@ public class MyMediaManage {
         }while(opcao!='V');
     }
 
-    //-------------------------------- Metodo: Marcar como visto -------------------------
+    //-------------------------------- Metodo: Marcar como visto por posicao -------------------------
     static void marcarComoVisto(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
 
         visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
@@ -585,6 +588,53 @@ public class MyMediaManage {
 
         else {System.out.println("Ja foi visto!");}
         
+        System.out.println("\n\n");
+    } 
+
+    //-------------------------------- Metodo: Marcar como visto por titulo -------------------------
+    static void marcarComoVistoPorTitulo(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+
+        visualizarTodos(tamMax, titulo, tipo, ano, visto, rating, nItens);
+
+        System.out.print("\nDigite a palavra escolhida: ");
+        String palavra = lerStringPalavra();
+        
+        
+        int contador = 0;
+        for(int i = 0; i < nItens; i++){
+
+
+            // Converte titulo do filme em array  divididos por palavras
+            String [] tituloPorPalavra = titulo[i].split(" ");
+
+                for(int j = 0; j < tituloPorPalavra.length; j++){
+
+                    //verifica cada palavra do array comparando com a palavra introduzida pelo utilizador, ignorando sensitiveCase
+                    //e tambem imprime quando encontrar apenas um elemento, ou seja, se conter palavras repetidas no filme ainda sim sera marcado 1 unic elemento
+                    if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1 && visto[i]==false){
+
+                         visto[i] = true;  
+                         limparTela();
+                         System.out.println(titulo[i]+ " ( Alterado para visto sucesso!!! )");
+                         contador++;
+                    }
+
+                     if(tituloPorPalavra[j].equalsIgnoreCase(palavra) && contador < 1 && visto[i]==true){
+
+                          
+                         limparTela();
+                         System.out.println(titulo[i]+" ( Ja foi visto!!! )");
+                         contador++;
+                    }
+                }
+                        
+        }
+
+        if (contador == 0) {
+        limparTela();
+        System.out.println("Nao encontrado!");
+            
+        }
         System.out.println("\n\n");
     } 
         

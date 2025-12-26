@@ -604,7 +604,9 @@ public class MyMediaManage {
 
         }
 
-        else {System.out.println("Ja foi visto!");}
+        else {
+            limparTela();
+            System.out.println("Ja foi visto!");}
         
         System.out.println("\n\n");
     } 

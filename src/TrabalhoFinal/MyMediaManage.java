@@ -692,7 +692,7 @@ public class MyMediaManage {
         int notaEscolhido = lerInt(1, 10,msg);
         
 
-        rating[itemEscolhido] = notaEscolhido;
+        rating[itemEscolhido-1] = notaEscolhido;
         limparTela();
         System.out.println("Nota atribuida com sucesso");
         

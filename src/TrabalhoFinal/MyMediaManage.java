@@ -688,7 +688,7 @@ public class MyMediaManage {
 
         System.out.print("\nDigite qual posicao do item quer atribuir nota: ");
         int itemEscolhido = lerInt(0, nItens,msg);
-        System.out.print("\nDigite qual classificacao de ( 1-10 ) que atribuir para: " + titulo[itemEscolhido] + ": ");
+        System.out.print("\nDigite qual classificacao de ( 1-10 ) que atribuir para: " + titulo[itemEscolhido-1] + ": ");
         int notaEscolhido = lerInt(1, 10,msg);
         
 

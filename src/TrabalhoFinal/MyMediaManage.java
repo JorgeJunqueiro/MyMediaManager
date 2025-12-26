@@ -789,12 +789,12 @@ public class MyMediaManage {
 
     static void apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens,String msg){
         if(nItens!=0){
-                    System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
-                    int pos = lerInt();
+                    System.out.println("Introduza o Numero do serie/filme que pretende Eleminar: ");
+                    int pos = lerInt()-1;
                         if(pos>nItens){
                             System.out.println("Esse numero está vazio.");
                         }else{
-                            
+                            System.out.println("Serie/Filme Eliminado");
                             apagar(tamMax, titulo, tipo, ano, visto, rating, nItens, pos);
                             nItens--;
                         }    
@@ -813,7 +813,7 @@ public class MyMediaManage {
                         nItens--;
                     }                    
                 }
-        System.out.println("Filmes vistos apagados!");
+        System.out.println("Series/Filmes vistos apagados!");
         menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
     }
 

@@ -52,7 +52,7 @@ public class MyMediaManage {
                     menuMarcar(tamMax, titulo, tipo, ano, visto, rating, nItens, msg,ultimoVisto);
                     break;
                 case ('E'):
-                    menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+                    nItens = menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                     break;
                 case ('t'):
                     menuEstatisticas(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
@@ -700,9 +700,10 @@ public class MyMediaManage {
     
 
     //=========================================================== MENU EDITAR ==========================================================
-    static void menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static int menuEditar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         char opcao = 'a';
         limparTela();
+        
         do{
             System.out.println("+==================  MENU EDITAR =================+");
             System.out.printf("|%-50s|%n", "");
@@ -719,24 +720,25 @@ public class MyMediaManage {
             switch (opcao) {
 
             case ('A'): //Adinciona filme no final
-                adicionarFinal(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+                nItens = adicionarFinal(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
             case ('i') : //Introduzir na posição. (Movimenta e adiciona).
-                adicionarPos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+                
+                nItens = adicionarPos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
             case('p'): //Apaga na Posição pretendida.
-                apagarPos(tamMax, titulo, tipo, ano, visto,  rating,  nItens, msg);
+                nItens = apagarPos(tamMax, titulo, tipo, ano, visto,  rating,  nItens, msg);
                 break;         
             
             case('v'): //apaga os vistos
-                apagarVistos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+                nItens = apagarVistos(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
                 break;
 
             case ('V'): //Volta para o menu principal.
-                menuPrincipal(tamMax, titulo, tipo, ano, visto, rating, nItens, msg, rating);
-                break;
+                return nItens;
+                
                    
             default:
                 System.out.println("**** Opcao invalida ****\n\n");
@@ -744,9 +746,11 @@ public class MyMediaManage {
             }
         
         }while(opcao!='V');
+
+        return nItens;
     }
 
-    static void adicionarFinal(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static int adicionarFinal(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         int pos = nItens;
         if(nItens<tamMax){
                     adicionar(tamMax, titulo, tipo, ano, visto,  rating,  nItens, pos);
@@ -754,10 +758,10 @@ public class MyMediaManage {
                 }else{
                     System.out.println("A Lista está cheia!");
                 }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+        return nItens;
     }
 
-    static void adicionarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static int adicionarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
     //Este metedo adiciona na posição pretendida.
         
             System.out.println("Introduza a posição em que pretende colocar: ");
@@ -775,10 +779,11 @@ public class MyMediaManage {
                             nItens++;
                         }
                     }
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+        
+        return nItens;
     }
 
-    static void apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens,String msg){
+    static int apagarPos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens,String msg){
         if(nItens!=0){
                     System.out.println("Introduza o Numero do filme que pretende Eleminar: ");
                     int pos = lerInt();
@@ -794,11 +799,11 @@ public class MyMediaManage {
                 }
          
                 
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+        return nItens;
         
     }
 
-    static void apagarVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
+    static int apagarVistos(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, String msg){
         int pos;
         for(int i=tamMax-1;i>=0;i--){
                     if(visto[i]==true){
@@ -808,7 +813,7 @@ public class MyMediaManage {
                     }                    
                 }
         System.out.println("Series/Filmes vistos apagados!");
-        menuEditar(tamMax, titulo, tipo, ano, visto, rating, nItens,msg);
+        return nItens;
     }
 
     static void apagar(int tamMax, String titulo[], char tipo[], int ano[], boolean visto[], int rating[], int nItens, int pos){
